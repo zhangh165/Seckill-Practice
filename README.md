@@ -5,7 +5,7 @@
 <ul>
 <li>miaoshad: 使用MySQL加字段version实现乐观锁</li>
 <li>miaoshaD: 使用MySQL的update行锁实现悲观锁</li>
-<li>TODO: 原子计数器+消息队列+MySQL</li>
+TODO: 原子计数器+消息队列+MySQL
 </ul>
 </p>
 
