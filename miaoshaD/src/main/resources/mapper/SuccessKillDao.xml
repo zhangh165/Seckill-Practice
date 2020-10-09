@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhh1011.seckill.dao.SuccsessKillDao">
+    <insert id="insertSuccessKill" >
+        INSERT IGNORE
+        INTO seckill_info(seckill_id,user_phone_number)
+        VALUES(#{seckillId},#{userPhone})
+    </insert>
+
+    <select id="queryById" resultMap="successKill">
+        SELECT
+            si.seckill_id seckillId,
+            si.user_phone_number userPhone,
+            si.create_time createTime,
+            s.seckill_id seckillSeckillId,
+            s.name seckillName,
+            s.number  seckillNumber,
+            s.start_time seckillStartTime,
+            s.end_time seckillEndTime,
+            s.create_time seckillCreateTime
+        FROM
+            seckill s JOIN seckill_info si
+            ON s.seckill_id = si.seckill_id
+        WHERE s.seckill_id = #{seckillId}
+        AND si.user_phone_number = #{userPhone}
+    </select>
+    
+    <resultMap id="successKill" type="SuccessKill">
+        <id column="seckillId" property="seckillId"/>
+        <id column="userPhone" property="userPhone"/>
+        <result column="createTime" property="createTime"/>
+        <!--加载对象中的子对象-->
+        <association property="seckill" javaType="Seckill" resultMap="seckillMap" columnPrefix="seckill"/>
+    </resultMap>
+
+    <resultMap id="seckillMap" type="Seckill">
+        <id column="seckillId" property="seckillId" />
+        <result column="name" property="name" />
+        <result column="number" property="number" />
+        <result column="startTime" property="startTime" />
+        <result column="endTime" property="endTime" />
+        <result column="createTime" property="createTime" />
+    </resultMap>
+</mapper>
